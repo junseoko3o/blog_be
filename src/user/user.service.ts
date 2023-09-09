@@ -52,7 +52,7 @@ export class UserService {
   } 
 
   async signUpUser(createData: CreateUserDto) {
-    const findUser = await this.findOneUserEmail(createData.user_email);
+    const findUser = await this.userRepository.findOneUserEmail(createData.user_email);
     const hashedPassword = await bcrypt.hash(createData.password, 10);
 
     if (findUser) {
