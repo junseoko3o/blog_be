@@ -7,13 +7,13 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   user_email: string;
 
   @Column()
   user_name: string;
 
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
   @Column({ type:'timestamp', precision: 6 , nullable: true })

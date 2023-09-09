@@ -56,9 +56,7 @@ export class ContentService {
   }
 
   async updateContent(id: number, updateData: UpdateContentDto): Promise<Content> {
-    await this.contentRepository.findOneContent(updateData.updated_user_id);
-    await this.findOneContent(id);
-    const content = new Content();
+    const content = await this.findOneContent(id);
     content.title = updateData.title;
     content.content = updateData.content;
     content.updated_user_id = updateData.updated_user_id;

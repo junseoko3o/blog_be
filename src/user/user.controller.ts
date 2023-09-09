@@ -9,6 +9,7 @@ import { JwtRefreshGuard } from './auth/jwt-refresh.guard';
 import { JwtAccessAuthGuard } from './auth/jwt-access.guard';
 import { User } from './user.entity';
 import { Public } from './auth/public.decorator';
+import { Content } from 'src/content/content.entity';
 
 @Controller('user')
 export class UserController {
@@ -28,14 +29,24 @@ export class UserController {
     }
 
     @Get('content/:id')
-    async findOneUserWithContent(@Param('id') id: number) {
+    async findOneUserWithContent(@Param('id') id: number): Promise<Content[]> {
       return await this.userService.findOneUserWithContent(id);
+    }
+
+    @Post('name/check')
+    async findOneUserNameCheck(@Body() user_name: string): Promise<User> {
+      return await this.userService.findOneUserName(user_name);
     }
 
     @Post('signup')
     @Public()
     async userSignUp(@Body() createData: CreateUserDto): Promise<User> {
       return await this.userService.signUpUser(createData);
+    }
+
+    @Post('validate')
+    async validatePassword(@Body() loginUserDto: LoginUserDto) {
+      return await this.userService.validateUser(loginUserDto);
     }
 
     @Post('update/:id')
@@ -64,6 +75,11 @@ export class UserController {
       res.cookie('refresh_token', refreshToken, {
         httpOnly: true,
         maxAge: parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME),
+      });
+      await this.userService.updateUser(user.id, {
+        user_name: user.user_name,
+        password: user.password,
+        login_at: new Date()
       });
       return {
         id: user.id,

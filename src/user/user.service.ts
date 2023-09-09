@@ -34,6 +34,14 @@ export class UserService {
     return user;
   }
 
+  async findOneUserName(user_name: string) {
+    const user = await this.userRepository.findOneUserName(user_name);
+    if (user) {
+      throw new BadRequestException('name is already exist.');
+    }
+    return user;
+  }
+
   async validateUser(loginData: LoginUserDto): Promise<User> {
     const user = await this.findOneUserEmail(loginData.user_email);
     const matchPassword = await bcrypt.compare(loginData.password, user.password);
@@ -44,7 +52,7 @@ export class UserService {
   } 
 
   async signUpUser(createData: CreateUserDto) {
-    const findUser = await this.userRepository.findOneUserEmail(createData.user_email);
+    const findUser = await this.findOneUserEmail(createData.user_email);
     const hashedPassword = await bcrypt.hash(createData.password, 10);
 
     if (findUser) {
@@ -66,12 +74,13 @@ export class UserService {
       throw new BadRequestException('user is not found.');
     }
 
-    const user = new User();
-    user.user_name = updateData.user_name;
-    user.password = updateData.password;
-
-    await this.userRepository.updateUser(id, user);
-    return user;
+    findUser.user_name = updateData.user_name;
+    if (updateData.password) {
+    const hashedPassword = await bcrypt.hash(updateData.password, 10);
+    findUser.password = hashedPassword;
+    } 
+    await this.userRepository.updateUser(id, findUser);
+    return findUser;
   }
 
   async deleteUser(id: number) {

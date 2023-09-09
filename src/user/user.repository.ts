@@ -32,6 +32,12 @@ export class UserRepository extends Repository<User> {
     })
   }
 
+  async findOneUserName(user_name: string): Promise<User> {
+    return await this.findOne({
+      where: { user_name },
+    });
+  }
+
   async createUser(createData: CreateUserDto) {
     const queryRunner = this.dataSource.createQueryRunner();
     
