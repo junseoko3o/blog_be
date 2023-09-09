@@ -1,11 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { UserService } from '../user.service';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../user.entity';
-import { RedisCacheService } from '../../common/redis/redis-cache.service';
-import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
+import { RedisCacheService } from 'src/common/redis/redis-cache.service';
+import { User } from 'src/user/user.entity';
+import { UserService } from 'src/user/user.service';
 
 export interface Payload {
   id: number;

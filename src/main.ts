@@ -1,7 +1,7 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { AuthGuard } from './user/auth/jwt-auth.guard';
+import { AuthGuard } from './auth/guard/jwt-auth.guard';
 import { HttpExceptionFilter } from './exception/exception.filter';
 import * as cookieParser from 'cookie-parser';
 

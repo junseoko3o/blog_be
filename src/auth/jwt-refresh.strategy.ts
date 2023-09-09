@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { Request } from "express";
-import { User } from "../user.entity";
+import { User } from "../user/user.entity";
 import { AuthService, Payload } from "./auth.service";
 import { RedisCacheService } from "src/common/redis/redis-cache.service";
 

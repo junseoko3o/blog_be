@@ -9,6 +9,8 @@ import { LoggerMiddleware } from './logger.middleware';
 import { HttpExceptionFilter } from './exception/exception.filter';
 import { RedisCacheModule } from './common/redis/redis-cache.module';
 import { CommentModule } from './comment/comment.module';
+import { AuthModule } from './auth/auth.module';
+import { ContentModule } from './content/content.module';
 
 @Module({
   imports: [
@@ -27,8 +29,10 @@ import { CommentModule } from './comment/comment.module';
       timezone: 'Z',
     }),
     UserModule,
+    ContentModule,
     RedisCacheModule,
     CommentModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [

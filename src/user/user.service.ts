@@ -56,7 +56,7 @@ export class UserService {
     const hashedPassword = await bcrypt.hash(createData.password, 10);
 
     if (findUser) {
-      throw new BadRequestException('user is already exist.')
+      throw new BadRequestException('user is already exist.');
     }
 
     const user = new User();
@@ -68,19 +68,23 @@ export class UserService {
     return user;
   }
 
-  async updateUser(id: number, updateData: UpdateUserDto) {
-    const findUser = await this.userRepository.findOneUser(id);
+  async updatePassword(id: number, updateUserDto: UpdateUserDto) {
+    const hashedPassword = await bcrypt.hash(updateUserDto.password, 10);
+    const newPassword = await this.userRepository.updatePassword(id, hashedPassword);
+    return newPassword;
+    
+  }
+  
+  async updateUser(id: number, updateData: UpdateUserDto): Promise<User> {
+    const findUser = await this.findOneUser(id);
     if (!findUser) {
       throw new BadRequestException('user is not found.');
     }
 
     findUser.user_name = updateData.user_name;
-    if (updateData.password) {
-    const hashedPassword = await bcrypt.hash(updateData.password, 10);
-    findUser.password = hashedPassword;
-    } 
+    findUser.password = updateData.password;
     await this.userRepository.updateUser(id, findUser);
-    return findUser;
+    return await this.findOneUser(id);
   }
 
   async deleteUser(id: number) {

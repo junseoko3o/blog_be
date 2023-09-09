@@ -10,7 +10,6 @@ import { User } from './user.entity';
 describe('UserService', () => {
   let userService: UserService;
   let userRepository: UserRepository;
-  let configService: ConfigService;
   let createdUser: User; 
   
   const qr = {
@@ -57,7 +56,6 @@ describe('UserService', () => {
 
     userService = module.get<UserService>(UserService);
     userRepository = module.get<UserRepository>(UserRepository);
-    configService = module.get<ConfigService>(ConfigService);
 
     createdUser = new User();
     createdUser.user_name = 'junseok';

@@ -54,6 +54,12 @@ export class UserRepository extends Repository<User> {
     }
   }
 
+  async updatePassword(id: number, password: string) {
+    return await this.update(id, {
+      password,
+    });
+  }
+
   async updateUser(id: number, updateData: UpdateUserDto) {
     const queryRunner = this.dataSource.createQueryRunner();
     

@@ -4,8 +4,7 @@ import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
 import { ConfigService } from '@nestjs/config';
 import { DataSource } from 'typeorm';
-import { JwtService } from '@nestjs/jwt';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from 'src/auth/auth.service';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -19,7 +18,6 @@ describe('UserController', () => {
         UserService, // UserService requires UserRepository and ConfigService
         UserRepository, // Add UserRepository as a provider
         ConfigService, // Add ConfigService as a provider
-        JwtService,
         AuthService,
         {
           provide: DataSource,
