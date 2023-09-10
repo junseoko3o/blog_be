@@ -62,7 +62,7 @@ export class ContentService {
     content.updated_user_id = updateData.updated_user_id;
 
     await this.contentRepository.updateContent(id, content);
-    return content;
+    return await this.findOneContent(id);
   }
 
   async deleteContent(id: number): Promise<string> {
