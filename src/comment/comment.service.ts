@@ -14,11 +14,11 @@ export class CommentService {
     private readonly contentService: ContentService,
   ) {}
 
-  async findAllComment() {
+  async findAllComment(): Promise<Comment[]> {
     return await this.commentRepository.findAllComment();
   }
 
-  async findOneComment(id: number) {
+  async findOneComment(id: number): Promise<Comment> {
     const comment = await this.commentRepository.findOneComment(id);
     if (!comment) {
       throw new NotFoundException('Comment is not found.');
@@ -26,12 +26,12 @@ export class CommentService {
     return comment;
   }
 
-  async findOneContentWithAllComment(content_id: number) {
+  async findOneContentWithAllComment(content_id: number): Promise<Comment[]> {
     const allComment = await this.contentService.findOneContentWithAllComment(content_id);
     return allComment;
   }
 
-  async createComment(createData: CreateCommentDto) {
+  async createComment(createData: CreateCommentDto): Promise<Comment> {
     const user = await this.userService.findOneUser(createData.created_user_id);
     await this.contentService.findOneContent(createData.content_id);
     const comment = new Comment();
@@ -44,7 +44,7 @@ export class CommentService {
     return comment;
   }
 
-  async updateComment(id: number, updateData: UpdateCommentDto) {
+  async updateComment(id: number, updateData: UpdateCommentDto): Promise<Comment> {
     const comment = await this.findOneComment(id);
     await this.userService.findOneUser(updateData.updated_user_id);
     await this.contentService.findOneContent(updateData.content_id);
@@ -54,7 +54,7 @@ export class CommentService {
 
     await this.commentRepository.updateComment(id, updateData);
 
-    return comment;
+    return await this.findOneComment(id);
   }
 
   async deleteComment(id: number): Promise<string> {

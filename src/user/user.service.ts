@@ -5,6 +5,7 @@ import { UserRepository } from './user.repository';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import { LoginUserDto } from './dto/login-user.dto';
+import { Content } from 'src/content/content.entity';
 
 @Injectable()
 export class UserService {
@@ -12,21 +13,25 @@ export class UserService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async findAllUser() {
+  async findAllUser(): Promise<User[]> {
     return await this.userRepository.findAllUser();
   }
 
-  async findOneUser(id: number) {
-    return await this.userRepository.findOneUser(id);
+  async findOneUser(id: number): Promise<User> {
+    const user = await this.userRepository.findOneUser(id);
+    if (!user) {
+      throw new NotFoundException('User is not found');
+    }
+    return user;
   }
 
-  async findOneUserWithContent(id: number) {
+  async findOneUserWithContent(id: number): Promise<Content[]> {
     await this.findOneUser(id);
     const user = await this.userRepository.findOneUserWithContent(id);
     return user.content;
   }
 
-  async findOneUserEmail(user_email: string) {
+  async findOneUserEmail(user_email: string): Promise<User> {
     const user = await this.userRepository.findOneUserEmail(user_email);
     if (!user) {
       throw new NotFoundException('User is not found.');
@@ -34,7 +39,7 @@ export class UserService {
     return user;
   }
 
-  async findOneUserName(user_name: string) {
+  async findOneUserName(user_name: string): Promise<User> {
     const user = await this.userRepository.findOneUserName(user_name);
     if (user) {
       throw new BadRequestException('name is already exist.');
@@ -51,7 +56,7 @@ export class UserService {
     return user;
   } 
 
-  async signUpUser(createData: CreateUserDto) {
+  async signUpUser(createData: CreateUserDto): Promise<User> {
     const findUser = await this.userRepository.findOneUserEmail(createData.user_email);
     const hashedPassword = await bcrypt.hash(createData.password, 10);
 
@@ -68,11 +73,16 @@ export class UserService {
     return user;
   }
 
-  async updatePassword(id: number, updateUserDto: UpdateUserDto) {
+  async updatePassword(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.findOneUser(id);
     const hashedPassword = await bcrypt.hash(updateUserDto.password, 10);
-    const newPassword = await this.userRepository.updatePassword(id, hashedPassword);
-    return newPassword;
-    
+    await this.userRepository.updateUser(id, {
+      user_email: user.user_email,
+      user_name: user.user_name,
+      password: hashedPassword,
+      login_at: user.login_at,
+    });
+    return await this.findOneUser(id);
   }
   
   async updateUser(id: number, updateData: UpdateUserDto): Promise<User> {
@@ -87,7 +97,7 @@ export class UserService {
     return await this.findOneUser(id);
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: number): Promise<string> {
     const findUser = await this.userRepository.findOneUser(id);
     if (!findUser) {
       throw new BadRequestException('user is not found.');

@@ -25,7 +25,7 @@ export class UserRepository extends Repository<User> {
     });
   }
 
-  async findOneUserWithContent(id: number) {
+  async findOneUserWithContent(id: number): Promise<User> {
     return await this.findOne({
       where: { id },
       relations: ['content'],
@@ -38,7 +38,7 @@ export class UserRepository extends Repository<User> {
     });
   }
 
-  async createUser(createData: CreateUserDto) {
+  async createUser(createData: CreateUserDto): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
     
     await queryRunner.connect();
@@ -54,13 +54,7 @@ export class UserRepository extends Repository<User> {
     }
   }
 
-  async updatePassword(id: number, password: string) {
-    return await this.update(id, {
-      password,
-    });
-  }
-
-  async updateUser(id: number, updateData: UpdateUserDto) {
+  async updateUser(id: number, updateData: UpdateUserDto): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
     
     await queryRunner.connect();

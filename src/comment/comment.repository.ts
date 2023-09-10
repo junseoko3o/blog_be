@@ -10,17 +10,17 @@ export class CommentRepository extends Repository<Comment> {
     super(Comment, dataSource.createEntityManager());
   }
 
-  async findAllComment() {
+  async findAllComment(): Promise<Comment[]> {
     return await this.find();
   }
 
-  async findOneComment(id: number) {
+  async findOneComment(id: number): Promise<Comment> {
     return await this.findOne({
       where: { id },
     });
   }
 
-  async createComment(createData: CreateCommentDto) {
+  async createComment(createData: CreateCommentDto): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
     
     await queryRunner.connect();
@@ -36,7 +36,7 @@ export class CommentRepository extends Repository<Comment> {
     }
   }
 
-  async updateComment(id: number, updateData: UpdateCommentDto) {
+  async updateComment(id: number, updateData: UpdateCommentDto): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
     
     await queryRunner.connect();
@@ -52,7 +52,7 @@ export class CommentRepository extends Repository<Comment> {
     }
   }
 
-  async deleteComment(id: number) {
+  async deleteComment(id: number): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();

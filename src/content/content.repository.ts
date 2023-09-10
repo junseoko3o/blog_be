@@ -41,7 +41,7 @@ export class ContentRepository extends Repository<Content> {
     return searchTitle;
   }
 
-  async createContent(createData: CreateContentDto) {
+  async createContent(createData: CreateContentDto): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();
@@ -57,7 +57,7 @@ export class ContentRepository extends Repository<Content> {
     }
   }
 
-  async updateContent(id: number, updateData: UpdateContentDto) {
+  async updateContent(id: number, updateData: UpdateContentDto): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();
@@ -73,7 +73,7 @@ export class ContentRepository extends Repository<Content> {
     }
   }
 
-  async deleteContent(id: number) {
+  async deleteContent(id: number): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();
