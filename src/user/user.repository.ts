@@ -3,6 +3,7 @@ import { User } from "./user.entity";
 import { DataSource, Repository } from "typeorm";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { plainToInstance } from "class-transformer";
 @Injectable()
 export class UserRepository extends Repository<User> {
   constructor(private dataSource: DataSource) {
@@ -38,7 +39,8 @@ export class UserRepository extends Repository<User> {
     });
   }
 
-  async createUser(createData: CreateUserDto): Promise<void> {
+  async createUser(createData: CreateUserDto): Promise<User> {
+    const user = plainToInstance(User, createData);
     const queryRunner = this.dataSource.createQueryRunner();
     
     await queryRunner.connect();
@@ -47,6 +49,7 @@ export class UserRepository extends Repository<User> {
     try {
       await queryRunner.manager.save(createData);
       await queryRunner.commitTransaction();
+      return user;
     } catch (err){
       await queryRunner.rollbackTransaction();
     } finally {
@@ -54,7 +57,8 @@ export class UserRepository extends Repository<User> {
     }
   }
 
-  async updateUser(id: number, updateData: UpdateUserDto): Promise<void> {
+  async updateUser(id: number, updateData: UpdateUserDto): Promise<User> {
+    const user = plainToInstance(User, updateData);
     const queryRunner = this.dataSource.createQueryRunner();
     
     await queryRunner.connect();
@@ -63,6 +67,7 @@ export class UserRepository extends Repository<User> {
     try {
       await queryRunner.manager.update(User, id, updateData);
       await queryRunner.commitTransaction();
+      return user;
     } catch (err){
       await queryRunner.rollbackTransaction();
     } finally {
