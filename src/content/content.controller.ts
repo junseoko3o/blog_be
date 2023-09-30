@@ -22,9 +22,14 @@ export class ContentController {
     return await this.contentService.findOneContent(id);
   }
 
-  @Get('search')
+  @Get()
   async searchTitleContent(@Query('search') searchKeyword: string): Promise<Content[]> {
     return await this.contentService.searchTitleContent(searchKeyword);
+  }
+
+  @Get()
+  async contentListPagenation(@Query('page') page: number) {
+    return await this.contentService.findAllContentPagenation(page);
   }
 
   @Post()

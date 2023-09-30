@@ -24,6 +24,10 @@ export class ContentService {
     }
     return content;
   }
+
+  async findAllContentPagenation(page: number): Promise<Content[]> {
+    return await this.contentRepository.findAllContentsPagenation(page);
+  }
   
   async findOneConentUserName(user_name: string): Promise<Content> {
     const content = await this.contentRepository.findOneContentOfUserName(user_name);
