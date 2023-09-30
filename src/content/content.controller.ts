@@ -22,8 +22,8 @@ export class ContentController {
     return await this.contentService.findOneContent(id);
   }
 
-  @Get()
-  async searchTitleContent(@Query('search') searchKeyword: string): Promise<Content[]> {
+  @Get('search')
+  async searchTitleContent(@Query('qr') searchKeyword: string): Promise<Content[]> {
     return await this.contentService.searchTitleContent(searchKeyword);
   }
 

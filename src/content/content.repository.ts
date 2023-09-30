@@ -15,12 +15,13 @@ export class ContentRepository extends Repository<Content> {
   }
 
   async findAllContentsPagenation(page: number): Promise<Content[]> {
-    return await this.dataSource
+    const pages =  await this.dataSource
       .createQueryBuilder(Content, 'content')
       .orderBy('content.updated_at', 'DESC')
       .take(10)
       .skip((page - 1) * 10)
       .getMany();
+      return pages
   }
 
   async findOneContent(id: number): Promise<Content> {
