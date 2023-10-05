@@ -11,6 +11,16 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const status = exception.getStatus();
     const krTime = moment().format('YYYY-MM-DD:HH:mm:ss').toString();
 
+    // if (exception instanceof CustomException) {
+    //   response
+    //     .status(HttpStatus.OK)
+    //     .json({
+    //       code: (exception as any).response.code,
+    //       message: (exception as any).message,
+    //       timestamp: krTime,
+    //       path: request.url,
+    //     });
+    //   }
     response	
       .status(status)
       .json({
