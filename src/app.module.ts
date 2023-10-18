@@ -11,6 +11,7 @@ import { RedisCacheModule } from './common/redis/redis-cache.module';
 import { CommentModule } from './comment/comment.module';
 import { AuthModule } from './auth/auth.module';
 import { ContentModule } from './content/content.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ContentModule } from './content/content.module';
     RedisCacheModule,
     CommentModule,
     AuthModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [
