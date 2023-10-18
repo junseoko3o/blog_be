@@ -6,7 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { APP_FILTER } from '@nestjs/core';
 import { LoggerMiddleware } from './logger.middleware';
-import { HttpExceptionFilter } from './exception/exception.filter';
+import { HttpExceptionFilter } from './common/exception/exception.filter';
 import { RedisCacheModule } from './common/redis/redis-cache.module';
 import { CommentModule } from './comment/comment.module';
 import { AuthModule } from './auth/auth.module';
