@@ -18,6 +18,7 @@ export class ChatGateway {
   @UseGuards(AuthGuard)
   async chatting(@MessageBody() createChatDto: CreateChatDto) {
     await this.chatService.userCheck(createChatDto.userId);
+    await this.chatService.saveMessageToRedis(createChatDto);
     this.server.emit('message', createChatDto);
   }
 }
