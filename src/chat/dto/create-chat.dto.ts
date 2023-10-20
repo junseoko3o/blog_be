@@ -8,7 +8,7 @@ export class CreateChatDto {
   userId: number;
 
   @IsString()
-  email: string;
+  name: string;
 
   @IsOptional()
   @IsString()
