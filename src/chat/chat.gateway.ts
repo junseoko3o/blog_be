@@ -28,7 +28,7 @@ export class ChatGateway {
     await this.chatService.userCheck(user.id);
     await this.chatService.addConnectedUser(user.id);
     const userList = await this.chatService.getConnectedUserList();
-    this.server.emit('login', {
+    this.server.emit('loggedIn', {
       user,
       userList,
       login: true,
@@ -41,7 +41,7 @@ export class ChatGateway {
     await this.chatService.userCheck(user.id);
     await this.chatService.disconnectedUser(user.id);
     await this.chatService.getConnectedUserList();
-    this.server.emit('logout', {
+    this.server.emit('loggedIn', {
       user,
       login: false,
     });
