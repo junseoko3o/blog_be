@@ -40,9 +40,10 @@ export class ChatGateway {
   async logoutUser(@MessageBody() user: User) {
     await this.chatService.userCheck(user.id);
     await this.chatService.disconnectedUser(user.id);
-    await this.chatService.getConnectedUserList();
-    this.server.emit('loggedIn', {
+    const userList = await this.chatService.getConnectedUserList();
+    this.server.emit('logOut', {
       user,
+      userList,
       login: false,
     });
   }

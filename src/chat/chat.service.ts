@@ -37,14 +37,14 @@ export class ChatService {
   async addConnectedUser(userId: number) {
     const user = await this.userCheck(userId);
     if (!await this.connectedUser.includes(user.id)) {
-      await this.connectedUser.push(userId);
+       await this.connectedUser.push(userId);
     }
   }
 
   async disconnectedUser(userId: number) {
     const index = await this.connectedUser.indexOf(userId);
     if (index !== -1) {
-      await this.connectedUser.splice(index, 1);
+      return await this.connectedUser.splice(index, 1);
     }
   }
 
