@@ -11,6 +11,8 @@ export class ChatService {
     private readonly redisService: RedisCacheService,
   ) {}
 
+  private connectedUser: number[] = [];
+
   async userCheck(userId: number) {
     return await this.userService.findOneUser(userId);
   }
@@ -30,5 +32,23 @@ export class ChatService {
     const key = 'group';
     const messages = await this.redisService.getKey(key);
     return messages ? JSON.parse(messages) : [];
+  }
+
+  async addConnectedUser(userId: number) {
+    const user = await this.userCheck(userId);
+    if (!await this.connectedUser.includes(user.id)) {
+      await this.connectedUser.push(userId);
+    }
+  }
+
+  async disconnectedUser(userId: number) {
+    const index = await this.connectedUser.indexOf(userId);
+    if (index !== -1) {
+      await this.connectedUser.splice(index, 1);
+    }
+  }
+
+  async getConnectedUserList() {
+    return await this.connectedUser.length;
   }
 }
