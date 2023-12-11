@@ -21,7 +21,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  app.useWebSocketAdapter(new RedisIoAdapter(app));
+  // app.useWebSocketAdapter(new RedisIoAdapter(app));
   app.useGlobalFilters(new HttpExceptionFilter());
   app.use(cookieParser()); 
   app.enableCors({

@@ -12,6 +12,7 @@ import { CommentModule } from './comment/comment.module';
 import { AuthModule } from './auth/auth.module';
 import { ContentModule } from './content/content.module';
 import { ChatModule } from './chat/chat.module';
+import { TerminusModule } from '@nestjs/terminus';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ChatModule } from './chat/chat.module';
     UserModule,
     ContentModule,
     RedisCacheModule,
+    TerminusModule, 
     CommentModule,
     AuthModule,
     ChatModule,
