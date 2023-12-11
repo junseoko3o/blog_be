@@ -4,7 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from './auth/guard/jwt-auth.guard';
 import { HttpExceptionFilter } from './common/exception/exception.filter';
 import * as cookieParser from 'cookie-parser';
-import { RedisIoAdapter } from './chat/redis.adapter';
+// import { RedisIoAdapter } from './chat/redis.adapter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
