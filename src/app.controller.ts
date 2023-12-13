@@ -27,8 +27,7 @@ export class AppController {
   @Public()
   check() {
       return this.health.check([
-          () => this.http.pingCheck('mango-admin', process.env.HEALTH_CHECK),
-          () => this.http.pingCheck('mango-chathot', process.env.HEALTH_CHECK_CHATBOT), 
+          () => this.http.pingCheck('my-blog', process.env.HEALTH_CHECK),
           () => this.db.pingCheck('database', { connection: this.defaultDataSource }),
           () => this.memory.checkHeap('memory heap', 300 * 1024 * 1024),
           () => this.memory.checkRSS('memory RSS', 300 * 1024 * 1024),
