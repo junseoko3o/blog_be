@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -6,6 +6,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { User } from './user.entity';
 import { Public } from '../auth/public.decorator';
 import { Content } from 'src/content/content.entity';
+import { ResponseTimeInterceptor } from 'src/response-time.interceptor';
 
 @Controller('user')
 export class UserController {
@@ -34,6 +35,7 @@ export class UserController {
   }
 
   @Post('signup')
+  @UseInterceptors(ResponseTimeInterceptor)
   @Public()
   async userSignUp(@Body() createData: CreateUserDto): Promise<User> {
     return await this.userService.signUpUser(createData);
