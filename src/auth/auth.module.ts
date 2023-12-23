@@ -12,6 +12,7 @@ import { RedisCacheService } from 'src/common/redis/redis-cache.service';
 
 @Module({
   imports: [
+    // PassportModule.register({ session: true }),
     PassportModule.register({}),
     JwtModule.registerAsync({
       imports: [ConfigModule],
