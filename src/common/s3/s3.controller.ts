@@ -1,34 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { S3Service } from './s3.service';
-import { CreateS3Dto } from './dto/create-s3.dto';
-import { UpdateS3Dto } from './dto/update-s3.dto';
+// import { Controller, Get, Post, Query, UploadedFile, UseInterceptors } from "@nestjs/common";
+// import { FileInterceptor } from "@nestjs/platform-express";
+// import { S3Service } from "./s3.service";
 
-@Controller('s3')
-export class S3Controller {
-  constructor(private readonly s3Service: S3Service) {}
+// @Controller('s3')
+// export class S3Controller {
+//     constructor(private readonly s3Service: S3Service) {}
 
-  @Post()
-  create(@Body() createS3Dto: CreateS3Dto) {
-    return this.s3Service.create(createS3Dto);
-  }
-
-  @Get()
-  findAll() {
-    return this.s3Service.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.s3Service.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateS3Dto: UpdateS3Dto) {
-    return this.s3Service.update(+id, updateS3Dto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.s3Service.remove(+id);
-  }
-}
+//     @Post()
+//     @UseInterceptors(FileInterceptor('file'))
+//     async uploadFile(@UploadedFile() file: Express.MulterS3.File) {
+//         return await this.s3Service.uploadFile(file);
+//     }
+    
+//     @Get('log')
+//     async searchFile(@Query('date') date: string) {
+//         return await this.s3Service.searchFile(date);
+//     }
+// }
