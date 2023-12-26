@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
-import { CreateMongoDto } from './dto/create-mongo.dto';
-import { UpdateMongoDto } from './dto/update-mongo.dto';
+// import { Injectable } from '@nestjs/common';
+// import { InjectModel } from '@nestjs/mongoose';
+// import { ChatLog, ChatLogDocument } from './mongo.schema';
+// import { Model } from 'mongoose';
+// import { MongoChatDto } from './dto/mongo.chat.dto';
+// import { MongoDateDto } from './dto/mongo-find.date';
+// import * as moment from 'moment-timezone';
 
-@Injectable()
-export class MongoService {
-  create(createMongoDto: CreateMongoDto) {
-    return 'This action adds a new mongo';
-  }
+// @Injectable()
+// export class MongoService {
+//   constructor(
+//     @InjectModel(ChatLog.name) private chatLogModel: Model<ChatLogDocument>,
+//   ) {}
 
-  findAll() {
-    return `This action returns all mongo`;
-  }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mongo`;
-  }
+//   async create(dto: MongoChatDto) {
+//     const create = new this.chatLogModel(dto);
+//     return create.save();
+//   }
 
-  update(id: number, updateMongoDto: UpdateMongoDto) {
-    return `This action updates a #${id} mongo`;
-  }
+//   async findAll() {
+//     return await this.chatLogModel.find().exec();
+//   }
 
-  remove(id: number) {
-    return `This action removes a #${id} mongo`;
-  }
-}
+//   async getChatLogBySessionId(sessionId: string) {
+//     return await this.chatLogModel.find({ sessionId }).exec();
+//   }
+
+//   async getChatLogByProjectKey(projectKey: string) {
+//     const currentDate = moment().tz('Aisa/Seoul');
+//     const lastMonday = currentDate.clone().subtract(1, 'weeks').startOf('isoWeek');
+//     const lastSunday = lastMonday.clone().add(6, 'days');
+//     return await this.chatLogModel.find({ 
+//       projectKey: projectKey,
+//       chatedAt: {
+//         $gte: lastMonday.format('YYYY-MM-DD'),
+//         $lte: lastSunday.format('YYYY-MM-DD'),
+//       },
+//     }).exec();
+//   }
+// }
