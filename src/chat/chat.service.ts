@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateChatDto } from './dto/create-chat.dto';
-import { UpdateChatDto } from './dto/update-chat.dto';
 import { UserService } from 'src/user/user.service';
 import { RedisCacheService } from 'src/common/redis/redis-cache.service';
 
