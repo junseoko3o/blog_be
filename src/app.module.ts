@@ -30,6 +30,8 @@ import { TerminusModule } from '@nestjs/terminus';
       synchronize: true,
       timezone: 'Z',
     }),
+    // ScheduleModule.forRoot(),
+    // MongooseModule.forRoot(process.env.MONGO_DB_URL, { dbName: process.env.DATABASE_NAME }),
     UserModule,
     ContentModule,
     RedisCacheModule,
