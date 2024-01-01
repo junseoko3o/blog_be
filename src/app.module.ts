@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { ContentModule } from './content/content.module';
 import { ChatModule } from './chat/chat.module';
 import { TerminusModule } from '@nestjs/terminus';
+import { DatabaseType } from './mysql-enum';
 
 @Module({
   imports: [
@@ -30,6 +31,18 @@ import { TerminusModule } from '@nestjs/terminus';
       synchronize: true,
       timezone: 'Z',
     }),
+    // TypeOrmModule.forRoot({
+    //   name: DatabaseType.SLAVE,
+    //   type: 'mysql',
+    //   host: process.env.DATABASE_HOST,
+    //   port: parseInt(process.env.DATABASE_PORT, 10),
+    //   username: process.env.DATABASE_USERNAME,
+    //   password: process.env.DATABASE_PASSWORD,
+    //   database: process.env.DATABASE_NAME_SLAVE,
+    //   entities: ['dist/**/*.entity.{ts,js}'],
+    //   synchronize: true,
+    //   timezone: 'Z',
+    // }),
     // ScheduleModule.forRoot(),
     // MongooseModule.forRoot(process.env.MONGO_DB_URL, { dbName: process.env.DATABASE_NAME }),
     UserModule,
