@@ -33,10 +33,9 @@ export class AuthController {
       maxAge: parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME),
     });
     await this.userService.updateUser(user.id, {
-      user_email: user.user_email,
       user_name: user.user_name,
       password: user.password,
-      login_at: new Date()
+      login_at: new Date(),
     });
     return {
       id: user.id,
