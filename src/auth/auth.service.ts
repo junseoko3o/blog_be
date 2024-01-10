@@ -76,7 +76,8 @@ export class AuthService {
   }
 
   async removeRefreshToken(id: number) {
-    return await this.redisCacheService.deleteKeyValue(id);
+    const user = await this.userService.findOneUser(id);
+    return await this.redisCacheService.deleteKeyValue(user.user_email);
   }
 
   async refresh(user: User) : Promise<string>{
