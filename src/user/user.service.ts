@@ -93,6 +93,7 @@ export class UserService {
 
     findUser.user_name = updateData.user_name;
     findUser.password = updateData.password;
+    findUser.login_at = new Date();
     await this.userRepository.updateUser(id, findUser);
     return await this.findOneUser(id);
   }
