@@ -1,18 +1,21 @@
+import { Comment } from "src/comment/comment.entity";
 import { Content } from "src/content/content.entity";
-import { Recomment } from "src/recomment/recomment.entity";
 import { User } from "src/user/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
-export class Comment {
+export class Recomment {
   @PrimaryGeneratedColumn()
   id: number;
-
+ 
   @Column()
-  comment: string;
+  recomment: string;
 
   @Column({ nullable: true })
   content_id: number;
+
+  @Column({ nullable: true })
+  comment_id: number;
 
   @Column()
   user_name: string;
@@ -29,14 +32,15 @@ export class Comment {
   @UpdateDateColumn()
   updated_at: Date;
   
-  @ManyToOne(() => User, (user) => user.comment, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.recomment, { onDelete: 'CASCADE' })
   @JoinColumn([{ name: 'created_user_id' }, { name: 'updated_user_id' }])
   user: User;
 
-  @ManyToOne(() => Content, (content) => content.comment, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Content, (content) => content.recomment, { onDelete: 'CASCADE' })
   @JoinColumn([{ name: 'content_id' }])
   content: Content;
 
-  @OneToMany(() => Recomment, (recomment) => recomment.comment, { cascade: true })
-  recomment: Recomment[];
+  @ManyToOne(() => Comment, (comment) => comment.recomment, { onDelete: 'CASCADE' })
+  @JoinColumn([{ name: 'comment_id' }])
+  comment: Comment;
 }

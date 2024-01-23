@@ -9,9 +9,9 @@ import { ConfigModule } from '@nestjs/config';
     RedisModule.forRoot({
       readyLog: true,
       config: {
-        host: '192.168.0.6',
-        port: 6379,
-        password: 'asdf123'
+        host: process.env.REDIS_HOST,
+        port: parseInt(process.env.REDIS_PORT),
+        password: process.env.REDIS_PASSWORD
       }
     }),
   ],
