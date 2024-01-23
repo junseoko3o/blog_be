@@ -1,4 +1,5 @@
 import { Comment } from "src/comment/comment.entity";
+import { Recomment } from "src/recomment/recomment.entity";
 import { User } from "src/user/user.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
@@ -34,4 +35,7 @@ export class Content {
 
   @OneToMany(() => Comment, (comment) => comment.content, { cascade: true })
   comment: Comment[];
+
+  @OneToMany(() => Recomment, (recomment) => recomment.content, { cascade: true })
+  recomment: Recomment[];
 }
