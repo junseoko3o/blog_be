@@ -13,4 +13,10 @@ export class RecommentRepository extends Repository<Recomment> {
       where: { comment_id },
     });
   }
+
+  async findOneReCommentInComment(id: number, comment_id: number) {
+    return await this.findOne({
+      where: { id, comment_id },
+    })
+  }
 }
