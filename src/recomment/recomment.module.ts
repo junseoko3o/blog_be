@@ -4,7 +4,7 @@ import { RecommentController } from './recomment.controller';
 import { UserModule } from 'src/user/user.module';
 import { ContentModule } from 'src/content/content.module';
 import { CommentModule } from 'src/comment/comment.module';
-import { ReCommentRepository } from './recomment.repository';
+import { RecommentRepository } from './recomment.repository';
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { ReCommentRepository } from './recomment.repository';
   controllers: [RecommentController],
   providers: [
     RecommentService,
-    ReCommentRepository,
+    RecommentRepository,
   ],
 })
 export class RecommentModule {}

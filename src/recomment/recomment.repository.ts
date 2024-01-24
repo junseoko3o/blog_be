@@ -3,8 +3,14 @@ import { DataSource, Repository } from "typeorm";
 import { Recomment } from "./recomment.entity";
 
 @Injectable()
-export class ReCommentRepository extends Repository<Recomment> {
+export class RecommentRepository extends Repository<Recomment> {
   constructor(private dataSource: DataSource) {
     super(Recomment, dataSource.createEntityManager());
+  }
+
+  async findAllRecommentInComment(comment_id: number) {
+    return await this.find({
+      where: { comment_id },
+    });
   }
 }
