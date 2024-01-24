@@ -18,4 +18,8 @@ export class RecommentService {
   async findAllReCommentInComment(comment_id: number) {
     return await this.recommentRepository.findAllRecommentInComment(comment_id);
   }
+
+  async findOneReCommentInComment(id: number, comment_id: number) {
+    return await this.recommentRepository.findOneReCommentInComment(id, comment_id)
+  }
 }
