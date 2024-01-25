@@ -7,11 +7,5 @@ export class UpdateRecommentDto extends PartialType(CreateRecommentDto) {
   recomment: string;
 
   @IsNumber()
-  content_id: number;
-
-  @IsNumber()
-  comment_id: number;
-
-  @IsNumber()
   updated_user_id: number;
 }
