@@ -16,4 +16,9 @@ export class RecommentController {
   async findOneRecommentInComment(@Param('id') id: number, @Body() comment_id: number) {
     return await this.recommentService.findOneReCommentInComment(id, comment_id);
   }
+
+  @Post()
+  async createRecomment(@Body() createData: CreateRecommentDto) {
+    return await this.recommentService.createRecomment(createData);
+  }
 }
