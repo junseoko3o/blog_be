@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { DataSource, Repository } from "typeorm";
 import { Recomment } from "./recomment.entity";
+import { CreateRecommentDto } from "./dto/create-recomment.dto";
+import { plainToInstance } from "class-transformer";
 
 @Injectable()
 export class RecommentRepository extends Repository<Recomment> {
@@ -18,5 +20,24 @@ export class RecommentRepository extends Repository<Recomment> {
     return await this.findOne({
       where: { id, comment_id },
     })
+  }
+
+
+  async createRecomment(createData: CreateRecommentDto) {
+    const reComment: Recomment = plainToInstance(Recomment, createData);
+    const queryRunner = this.dataSource.createQueryRunner();
+    
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      await queryRunner.manager.save(createData);
+      await queryRunner.commitTransaction();
+      return reComment;
+    } catch (err){
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
   }
 }
