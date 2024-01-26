@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { RecommentService } from './recomment.service';
 import { CreateRecommentDto } from './dto/create-recomment.dto';
 import { UpdateRecommentDto } from './dto/update-recomment.dto';
@@ -20,5 +20,10 @@ export class RecommentController {
   @Post()
   async createRecomment(@Body() createData: CreateRecommentDto) {
     return await this.recommentService.createRecomment(createData);
+  }
+
+  @Delete('/:id')
+  async deleteRecomment(@Param('id') id: number, @Body() user_id: number) {
+    return await this.recommentService.deleteRecomment(id, user_id);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRecommentDto } from './dto/create-recomment.dto';
 import { UpdateRecommentDto } from './dto/update-recomment.dto';
 import { UserService } from 'src/user/user.service';
@@ -15,6 +15,14 @@ export class RecommentService {
     private readonly contentService: ContentService,
     private readonly commentService: CommentService,
   ) {}
+
+  async findOneRecomment(id: number) {
+    const recomment = await this.recommentRepository.findOneRecomment(id);
+    if (!recomment) {
+      throw new NotFoundException('not found recomment');
+    }
+    return recomment;
+  }
 
   async findAllReCommentInComment(comment_id: number) {
     return await this.recommentRepository.findAllRecommentInComment(comment_id);
@@ -37,5 +45,17 @@ export class RecommentService {
     reComment.created_user_id = user.id;
 
     return await this.recommentRepository.createRecomment(reComment);
+  }
+
+  async deleteRecomment(id: number, user_id: number) {
+    const recomment = await this.findOneRecomment(id);
+    if (!user_id) {
+      throw new BadRequestException('user_id should be contained.');
+    }
+    if (recomment.created_user_id !== user_id) {
+      throw new BadRequestException('is not your recomment.');
+    }
+    await this.recommentRepository.deleteRecomment(id);
+    return 'delete success';
   }
 }
