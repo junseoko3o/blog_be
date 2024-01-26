@@ -16,6 +16,12 @@ export class RecommentRepository extends Repository<Recomment> {
     });
   }
 
+  async findOneRecomment(id: number) {
+    return await this.findOne({
+      where: { id }, 
+    });
+  }
+
   async findOneReCommentInComment(id: number, comment_id: number) {
     return await this.findOne({
       where: { id, comment_id },
@@ -35,6 +41,28 @@ export class RecommentRepository extends Repository<Recomment> {
       await queryRunner.commitTransaction();
       return reComment;
     } catch (err){
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  async deleteRecomment(id: number) {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      await queryRunner.manager
+      .createQueryBuilder(Recomment, 'recomment')
+      .delete()
+      .from(Recomment)
+      .where("id = :id", { id })
+      .execute()
+      
+      await queryRunner.commitTransaction();
+    } catch (err) {
       await queryRunner.rollbackTransaction();
     } finally {
       await queryRunner.release();
