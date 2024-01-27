@@ -3,6 +3,7 @@ import { DataSource, Repository } from "typeorm";
 import { Recomment } from "./recomment.entity";
 import { CreateRecommentDto } from "./dto/create-recomment.dto";
 import { plainToInstance } from "class-transformer";
+import { UpdateRecommentDto } from "./dto/update-recomment.dto";
 
 @Injectable()
 export class RecommentRepository extends Repository<Recomment> {
@@ -28,7 +29,6 @@ export class RecommentRepository extends Repository<Recomment> {
     })
   }
 
-
   async createRecomment(createData: CreateRecommentDto) {
     const reComment: Recomment = plainToInstance(Recomment, createData);
     const queryRunner = this.dataSource.createQueryRunner();
@@ -38,6 +38,24 @@ export class RecommentRepository extends Repository<Recomment> {
 
     try {
       await queryRunner.manager.save(createData);
+      await queryRunner.commitTransaction();
+      return reComment;
+    } catch (err){
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  async updateRecomment(id: number, updateData: UpdateRecommentDto) {
+    const reComment: Recomment = plainToInstance(Recomment, updateData);
+    const queryRunner = this.dataSource.createQueryRunner();
+    
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      await queryRunner.manager.update(Recomment, id, updateData);
       await queryRunner.commitTransaction();
       return reComment;
     } catch (err){

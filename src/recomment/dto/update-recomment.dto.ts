@@ -7,5 +7,8 @@ export class UpdateRecommentDto extends PartialType(CreateRecommentDto) {
   recomment: string;
 
   @IsNumber()
+  user_id: number;
+
+  @IsNumber()
   updated_user_id: number;
 }
