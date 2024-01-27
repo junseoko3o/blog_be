@@ -22,6 +22,11 @@ export class RecommentController {
     return await this.recommentService.createRecomment(createData);
   }
 
+  @Post('/update/:id')
+  async updateRecomment(@Param('id') id: number, @Body() updateData: UpdateRecommentDto) {
+    return await this.recommentService.updateRecomment(id, updateData);
+  }
+
   @Delete('/:id')
   async deleteRecomment(@Param('id') id: number, @Body() user_id: number) {
     return await this.recommentService.deleteRecomment(id, user_id);

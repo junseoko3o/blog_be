@@ -47,6 +47,17 @@ export class RecommentService {
     return await this.recommentRepository.createRecomment(reComment);
   }
 
+  async updateRecomment(id: number, updateData: UpdateRecommentDto) {
+    const user = await this.userService.findOneUser(updateData.updated_user_id);
+    const recomment = await this.recommentRepository.findOneRecomment(id);
+    if (updateData.user_id !== recomment.created_user_id) {
+      throw new BadRequestException('is not your recommnet.');
+    }
+    recomment.updated_user_id = user.id;
+    recomment.recomment = updateData.recomment;
+    return await this.recommentRepository.updateRecomment(id, updateData);
+  }
+
   async deleteRecomment(id: number, user_id: number) {
     const recomment = await this.findOneRecomment(id);
     if (!user_id) {
