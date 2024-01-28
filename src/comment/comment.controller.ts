@@ -23,6 +23,11 @@ export class CommentController {
     return await this.commentService.findOneContentWithAllComment(content_id);
   }
 
+  @Get('/all-recomment/:id')
+  async findOneCommentWithAllRecomment(@Param('id') id: number) {
+    return await this.commentService.findOneCommentWithAllRecomment(id);
+  }
+
   @Post()
   async createComment(@Body() createData: CreateCommentDto): Promise<Comment> {
     return await this.commentService.createComment(createData);

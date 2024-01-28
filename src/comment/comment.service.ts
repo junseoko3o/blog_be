@@ -31,6 +31,10 @@ export class CommentService {
     return allComment;
   }
 
+  async findOneCommentWithAllRecomment(id: number) {
+    return await this.commentRepository.findOneCommentWithAllRecomment(id);
+  }
+
   async createComment(createData: CreateCommentDto): Promise<Comment> {
     const user = await this.userService.findOneUser(createData.created_user_id);
     await this.contentService.findOneContent(createData.content_id);
