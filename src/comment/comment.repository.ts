@@ -20,6 +20,13 @@ export class CommentRepository extends Repository<Comment> {
     });
   }
 
+  async findOneCommentWithAllRecomment(id: number) {
+    return await this.findOne({
+      where: { id },
+      relations: ['recomment'],
+    });
+  }
+
   async createComment(createData: CreateCommentDto): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
     
