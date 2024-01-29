@@ -11,6 +11,11 @@ export class Comment {
   @Column()
   comment: string;
 
+  @Column({
+    default: 0,
+  })
+  like: number;
+
   @Column({ nullable: true })
   content_id: number;
 
