@@ -40,7 +40,6 @@ export class CommentController {
 
   @Delete(':id')
   async deleteComment(@Param('id') id: number): Promise<string> {
-    await this.commentService.deleteComment(id);
-    return 'deleted successfully';
+    return await this.commentService.deleteComment(id);
   }
 }
