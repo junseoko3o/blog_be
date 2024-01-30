@@ -6,6 +6,7 @@ import { ContentService } from 'src/content/content.service';
 import { CommentService } from 'src/comment/comment.service';
 import { RecommentRepository } from './recomment.repository';
 import { Recomment } from './recomment.entity';
+import { LikeRecommentDto } from './dto/like-recomment.dto';
 
 @Injectable()
 export class RecommentService {
@@ -68,5 +69,15 @@ export class RecommentService {
     }
     await this.recommentRepository.deleteRecomment(id);
     return 'delete success';
+  }
+  
+  async likeUpdateRecomment(id: number, likeData: LikeRecommentDto) {
+    const recomment = await this.recommentRepository.findOneRecomment(id);
+    if(likeData.like) {
+      recomment.like += recomment.like;
+    } else {
+      recomment.like -= recomment.like;
+    }
+    return await this.recommentRepository.updateLiketRecomment(id, likeData);
   }
 }
