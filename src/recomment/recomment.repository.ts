@@ -4,6 +4,7 @@ import { Recomment } from "./recomment.entity";
 import { CreateRecommentDto } from "./dto/create-recomment.dto";
 import { plainToInstance } from "class-transformer";
 import { UpdateRecommentDto } from "./dto/update-recomment.dto";
+import { LikeRecommentDto } from "./dto/like-recomment.dto";
 
 @Injectable()
 export class RecommentRepository extends Repository<Recomment> {
@@ -81,6 +82,24 @@ export class RecommentRepository extends Repository<Recomment> {
       
       await queryRunner.commitTransaction();
     } catch (err) {
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  async updateLiketRecomment(id: number, likeData: LikeRecommentDto) {
+    const reComment: Recomment = plainToInstance(Recomment, likeData);
+    const queryRunner = this.dataSource.createQueryRunner();
+    
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      await queryRunner.manager.update(Recomment, id, likeData);
+      await queryRunner.commitTransaction();
+      return reComment;
+    } catch (err){
       await queryRunner.rollbackTransaction();
     } finally {
       await queryRunner.release();
