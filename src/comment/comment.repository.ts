@@ -3,6 +3,8 @@ import { Comment } from "./comment.entity";
 import { Injectable } from "@nestjs/common";
 import { CreateCommentDto } from "./dto/create-comment.dto";
 import { UpdateCommentDto } from "./dto/update-comment.dto";
+import { plainToInstance } from "class-transformer";
+import { LikeCommentDto } from "./dto/like-comment.dto";
 
 @Injectable()
 export class CommentRepository extends Repository<Comment> {
@@ -75,6 +77,24 @@ export class CommentRepository extends Repository<Comment> {
       
       await queryRunner.commitTransaction();
     } catch (err) {
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  async updateLiketComment(id: number, likeData: LikeCommentDto) {
+    const comment: Comment = plainToInstance(Comment, likeData);
+    const queryRunner = this.dataSource.createQueryRunner();
+    
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      await queryRunner.manager.update(Comment, id, likeData);
+      await queryRunner.commitTransaction();
+      return comment;
+    } catch (err){
       await queryRunner.rollbackTransaction();
     } finally {
       await queryRunner.release();

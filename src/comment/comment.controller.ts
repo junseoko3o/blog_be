@@ -3,6 +3,7 @@ import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './comment.entity';
+import { LikeCommentDto } from './dto/like-comment.dto';
 
 @Controller('comment')
 export class CommentController {
@@ -41,5 +42,10 @@ export class CommentController {
   @Delete(':id')
   async deleteComment(@Param('id') id: number): Promise<string> {
     return await this.commentService.deleteComment(id);
+  }
+
+  @Post('/like/:id')
+  async likeUpdateRecomment(@Param('id') id: number, @Body() likeData: LikeCommentDto) {
+    return await this.commentService.likeUpdateComment(id, likeData);
   }
 }
