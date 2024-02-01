@@ -74,7 +74,7 @@ export class CommentService {
 
   async likeUpdateComment(id: number, likeData: LikeCommentDto) {
     const comment = await this.commentRepository.findOneComment(id);
-    if(likeData.like) {
+    if(likeData.like && !likeData.disLike) {
       comment.like += comment.like;
     } else {
       comment.like -= comment.like;
