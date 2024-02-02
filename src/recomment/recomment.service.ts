@@ -73,7 +73,7 @@ export class RecommentService {
   
   async likeUpdateRecomment(id: number, likeData: LikeRecommentDto) {
     const recomment = await this.recommentRepository.findOneRecomment(id);
-    if(likeData.like && !likeData.disLike) {
+    if(likeData.heart === true) {
       recomment.like += recomment.like;
     } else {
       recomment.like -= recomment.like;
