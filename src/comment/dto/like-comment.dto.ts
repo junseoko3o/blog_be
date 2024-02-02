@@ -1,11 +1,7 @@
-import { IsNumber, IsOptional } from "class-validator";
+import { IsBoolean, IsOptional } from "class-validator";
 
 export class LikeCommentDto {
-  @IsNumber()
+  @IsBoolean()
   @IsOptional()
-  like: number;
-
-  @IsNumber()
-  @IsOptional()
-  disLike: number;
+  heart: boolean;
 }
