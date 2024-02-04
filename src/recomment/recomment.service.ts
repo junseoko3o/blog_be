@@ -73,10 +73,10 @@ export class RecommentService {
   
   async likeUpdateRecomment(id: number, likeData: LikeRecommentDto) {
     const recomment = await this.recommentRepository.findOneRecomment(id);
-    if(likeData.heart === true) {
-      recomment.like += recomment.like;
+    if (likeData.heart === true) {
+      recomment.like++;
     } else {
-      recomment.like -= recomment.like;
+      recomment.like = Math.max(0, recomment.like - 1);
     }
     return await this.recommentRepository.updateLiketRecomment(id, likeData);
   }
