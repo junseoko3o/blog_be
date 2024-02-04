@@ -74,10 +74,10 @@ export class CommentService {
 
   async likeUpdateComment(id: number, likeData: LikeCommentDto) {
     const comment = await this.commentRepository.findOneComment(id);
-    if(likeData.heart === true) {
-      comment.like += comment.like;
+    if (likeData.heart === true) {
+      comment.like++;
     } else {
-      comment.like -= comment.like;
+      comment.like = Math.max(0, comment.like - 1);
     }
     return await this.commentRepository.updateLiketComment(id, likeData);
   }
