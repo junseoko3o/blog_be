@@ -15,7 +15,7 @@ import { ChatModule } from './chat/chat.module';
 import { TerminusModule } from '@nestjs/terminus';
 import { DatabaseType } from './mysql-enum';
 import { RecommentModule } from './recomment/recomment.module';
-import { LikeModule } from './like/like.module';
+import { HeartModule } from './heart/heart.module';
 
 @Module({
   imports: [
@@ -55,7 +55,7 @@ import { LikeModule } from './like/like.module';
     AuthModule,
     ChatModule,
     RecommentModule,
-    LikeModule,
+    HeartModule,
   ],
   controllers: [AppController],
   providers: [

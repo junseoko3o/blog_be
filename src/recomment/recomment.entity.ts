@@ -1,7 +1,8 @@
 import { Comment } from "src/comment/comment.entity";
 import { Content } from "src/content/content.entity";
+import { Heart } from "src/heart/heart.entity";
 import { User } from "src/user/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Recomment {
@@ -10,11 +11,6 @@ export class Recomment {
  
   @Column()
   recomment: string;
-
-  @Column({
-    default: 0,
-  })
-  like: number;
 
   @Column({ nullable: true })
   content_id: number;
@@ -48,4 +44,7 @@ export class Recomment {
   @ManyToOne(() => Comment, (comment) => comment.recomment, { onDelete: 'CASCADE' })
   @JoinColumn([{ name: 'comment_id' }])
   comment: Comment;
+
+  @OneToOne(() => Heart,(heart) => heart.recomment, { onDelete: 'CASCADE' })
+  heart: Heart;
 }
