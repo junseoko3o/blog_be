@@ -1,7 +1,8 @@
 import { Content } from "src/content/content.entity";
+import { Heart } from "src/heart/heart.entity";
 import { Recomment } from "src/recomment/recomment.entity";
 import { User } from "src/user/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Comment {
@@ -44,4 +45,7 @@ export class Comment {
 
   @OneToMany(() => Recomment, (recomment) => recomment.comment, { cascade: true })
   recomment: Recomment[];
+
+  @OneToOne(() => Heart,(heart) => heart.comment, { onDelete: 'CASCADE' })
+  heart: Heart;
 }

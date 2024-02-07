@@ -5,7 +5,6 @@ import { CommentRepository } from './comment.repository';
 import { ContentService } from 'src/content/content.service';
 import { UserService } from 'src/user/user.service';
 import { Comment } from './comment.entity';
-import { LikeCommentDto } from './dto/like-comment.dto';
 
 @Injectable()
 export class CommentService {
@@ -70,15 +69,5 @@ export class CommentService {
     }
     await this.commentRepository.deleteComment(id);
     return 'deleted successfully';
-  }
-
-  async likeUpdateComment(id: number, likeData: LikeCommentDto) {
-    const comment = await this.commentRepository.findOneComment(id);
-    if (likeData.heart === true) {
-      comment.like++;
-    } else {
-      comment.like = Math.max(0, comment.like - 1);
-    }
-    return await this.commentRepository.updateLiketComment(id, likeData);
   }
 }
