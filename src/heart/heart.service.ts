@@ -19,15 +19,15 @@ export class HeartService {
     return await this.heartRepository.find();
   }
 
-  async findOneHeartInComment(id: number, comment_id: number) {
+  async findOneHeartInComment(comment_id: number) {
     return await this.heartRepository.findOne({
-      where: { id, comment_id },
+      where: { comment_id },
     });
   }
 
-  async findOneHeartInRecomment(id: number, recomment_id: number) {
+  async findOneHeartInRecomment(recomment_id: number) {
     return await this.heartRepository.findOne({
-      where: { id, recomment_id },
+      where: { recomment_id },
     });
   }
 }
