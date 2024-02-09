@@ -5,9 +5,12 @@ import { UserModule } from 'src/user/user.module';
 import { ContentModule } from 'src/content/content.module';
 import { CommentModule } from 'src/comment/comment.module';
 import { RecommentRepository } from './recomment.repository';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Recomment } from './recomment.entity';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([Recomment]),
     UserModule,
     ContentModule,
     CommentModule,
@@ -17,5 +20,9 @@ import { RecommentRepository } from './recomment.repository';
     RecommentService,
     RecommentRepository,
   ],
+  exports: [
+    RecommentService,
+    RecommentRepository,
+  ]
 })
 export class RecommentModule {}
