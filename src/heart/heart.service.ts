@@ -1,26 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateHeartDto } from './dto/create-heart.dto';
 import { UpdateHeartDto } from './dto/update-heart.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Heart } from './heart.entity';
+import { Repository } from 'typeorm';
+import { CommentService } from 'src/comment/comment.service';
+import { RecommentService } from 'src/recomment/recomment.service';
 
 @Injectable()
 export class HeartService {
-  create(createHeartDto: CreateHeartDto) {
-    return 'This action adds a new heart';
-  }
-
-  findAll() {
-    return `This action returns all heart`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} heart`;
-  }
-
-  update(id: number, updateHeartDto: UpdateHeartDto) {
-    return `This action updates a #${id} heart`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} heart`;
-  }
+  constructor(
+    @InjectRepository(Heart)
+    private readonly heartRepository: Repository<Heart>,
+    private readonly commentService: CommentService,
+    private readonly recommentService: RecommentService,
+  ) {}
 }
