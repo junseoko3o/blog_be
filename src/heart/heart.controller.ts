@@ -1,5 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { HeartService } from './heart.service';
+import { CommentHeartDto } from './dto/comment-heart.dto';
+import { ReCommentHeartDto } from './dto/recomment-heart.dto';
 
 @Controller('heart')
 export class HeartController {
@@ -13,5 +15,15 @@ export class HeartController {
   @Get('/recomment/:recomment_id')
   async findOneHeartInRecomment(@Param('recomment_id') recomment_id: number) {
     return await this.heartService.findOneHeartInRecomment(recomment_id);
+  }
+
+  @Post('/comment')
+  async createHeartInComment(@Body() commentHeartDto: CommentHeartDto) {
+    return await this.heartService.createCommentLike(commentHeartDto);
+  }
+
+  @Post('/recomment')
+  async createHeartInReComment(@Body() recommentHeartDto: ReCommentHeartDto) {
+    return await this.heartService.createReCommentLike(recommentHeartDto);
   }
 }
