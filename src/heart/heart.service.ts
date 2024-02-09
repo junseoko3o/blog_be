@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CommentService } from 'src/comment/comment.service';
 import { RecommentService } from 'src/recomment/recomment.service';
 import { CommentHeartDto } from './dto/comment-heart.dto';
+import { ReCommentHeartDto } from './dto/recomment-heart.dto';
 
 @Injectable()
 export class HeartService {
@@ -29,5 +30,23 @@ export class HeartService {
     return await this.heartRepository.findOne({
       where: { recomment_id },
     });
+  }
+
+  async createCommentLike(commentHeartDto: CommentHeartDto) {
+    await this.commentService.findOneComment(commentHeartDto.comment_id);
+    const heart = new Heart();
+    heart.comment_id = commentHeartDto.comment_id;
+    heart.like = 0;
+
+    return await this.heartRepository.save(heart);
+  }
+
+  async createReCommentLike(recommentHeartDto: ReCommentHeartDto) {
+    await this.commentService.findOneComment(recommentHeartDto.recomment_id);
+    const heart = new Heart();
+    heart.comment_id = recommentHeartDto.recomment_id;
+    heart.like = 0;
+
+    return await this.heartRepository.save(heart);
   }
 }
