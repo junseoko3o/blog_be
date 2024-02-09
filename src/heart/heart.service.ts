@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateHeartDto } from './dto/create-heart.dto';
-import { UpdateHeartDto } from './dto/update-heart.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Heart } from './heart.entity';
 import { Repository } from 'typeorm';
 import { CommentService } from 'src/comment/comment.service';
 import { RecommentService } from 'src/recomment/recomment.service';
+import { CommentHeartDto } from './dto/comment-heart.dto';
 
 @Injectable()
 export class HeartService {
@@ -15,4 +14,20 @@ export class HeartService {
     private readonly commentService: CommentService,
     private readonly recommentService: RecommentService,
   ) {}
+
+  async findAllHeart() {
+    return await this.heartRepository.find();
+  }
+
+  async findOneHeartInComment(id: number, comment_id: number) {
+    return await this.heartRepository.findOne({
+      where: { id, comment_id },
+    });
+  }
+
+  async findOneHeartInRecomment(id: number, recomment_id: number) {
+    return await this.heartRepository.findOne({
+      where: { id, recomment_id },
+    });
+  }
 }
