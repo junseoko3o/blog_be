@@ -18,6 +18,9 @@ export class Heart {
   })
   like: number;
 
+  // @Column()
+  // user_id: number;
+
   @OneToOne(() => Comment, (comment) =>  comment.heart, { cascade : true })
   @JoinColumn({ name: 'comment_id' })
   comment: Comment;
