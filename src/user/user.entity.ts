@@ -34,4 +34,7 @@ export class User {
 
   @OneToMany(() => Recomment, (recomment) => recomment.user, { cascade: true })
   recomment: Recomment[];
+
+  // @OneToMany(() => Heart, (heart) => heart.user, { cascade: true })
+  // heart: Heart[];
 }

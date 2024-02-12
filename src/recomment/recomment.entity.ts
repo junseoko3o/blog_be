@@ -45,6 +45,9 @@ export class Recomment {
   @JoinColumn([{ name: 'comment_id' }])
   comment: Comment;
 
+  // @OneToMany(() => Heart, (heart) => heart.recomment, { cascade: true })
+  // heart: Heart[];
+
   @OneToOne(() => Heart,(heart) => heart.recomment, { onDelete: 'CASCADE' })
   heart: Heart;
 }

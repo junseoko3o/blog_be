@@ -46,6 +46,9 @@ export class Comment {
   @OneToMany(() => Recomment, (recomment) => recomment.comment, { cascade: true })
   recomment: Recomment[];
 
+  // @OneToMany(() => Heart, (heart) => heart.comment, { cascade: true })
+  // heart: Heart[];
+
   @OneToOne(() => Heart,(heart) => heart.comment, { onDelete: 'CASCADE' })
   heart: Heart;
 }
