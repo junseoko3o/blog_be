@@ -25,7 +25,15 @@ export class Heart {
   @JoinColumn({ name: 'comment_id' })
   comment: Comment;
 
+  // @ManyToOne(() => Comment, (comment) => comment.heart, { onDelete: 'CASCADE' })
+  // @JoinColumn([{ name: 'comment_id' }])
+  // comment: Comment;
+
   @OneToOne(() => Recomment, (recomment) =>  recomment.heart, { cascade : true })
   @JoinColumn({ name: 'recomment_id' })
   recomment: Recomment;
+
+  // @ManyToOne(() => Recomment, (recomment) => recomment.heart, { onDelete: 'CASCADE' })
+  // @JoinColumn([{ name: 'recomment_id' }])
+  // recomment: Recomment;
 }
