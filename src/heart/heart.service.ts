@@ -40,6 +40,7 @@ export class HeartService {
     await this.commentService.findOneComment(commentHeartDto.comment_id);
     const heart = new Heart();
     heart.comment_id = commentHeartDto.comment_id;
+    // heart.user_id = commentHeartDto.user_id;
     heart.like = 0;
 
     return await this.heartRepository.save(heart);
@@ -49,6 +50,7 @@ export class HeartService {
     await this.commentService.findOneComment(recommentHeartDto.recomment_id);
     const heart = new Heart();
     heart.comment_id = recommentHeartDto.recomment_id;
+    // heart.user_id = recommentHeartDto.user_id;
     heart.like = 0;
 
     return await this.heartRepository.save(heart);
