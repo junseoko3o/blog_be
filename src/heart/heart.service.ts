@@ -22,6 +22,12 @@ export class HeartService {
     return await this.heartRepository.find();
   }
 
+  // async findOneHeartInUser(user_id: number) {
+  //   return await this.heartRepository.findOne({
+  //     where: { user_id },
+  //   })
+  // }
+
   async findOneHeartInComment(comment_id: number) {
     await this.commentService.findOneComment(comment_id);
     return await this.heartRepository.findOne({
@@ -40,7 +46,6 @@ export class HeartService {
     await this.commentService.findOneComment(commentHeartDto.comment_id);
     const heart = new Heart();
     heart.comment_id = commentHeartDto.comment_id;
-    // heart.user_id = commentHeartDto.user_id;
     heart.like = 0;
 
     return await this.heartRepository.save(heart);
