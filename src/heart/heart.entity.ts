@@ -18,6 +18,11 @@ export class Heart {
   })
   like: number;
 
+  // @Column({
+  //   default: false,
+  // })
+  // like: boolean;
+
   // @Column()
   // user_id: number;
 
