@@ -42,6 +42,21 @@ export class HeartService {
     });
   }
 
+  // async likeCountInComment(comment_id: number) {
+  //   const heart = await this.heartRepository.find({
+  //     where: { comment_id },
+  //   });
+  //   let count = 0;
+  //   for (let i = 0; i < heart.length; i++) {
+  //       if (heart[i].like === true) {
+  //           count++;
+  //       }
+  //   }
+  //   return {
+  //     like_count: count,
+  //   };
+  // }
+
   // async createCommentLike(commentHeartDto: CommentHeartDto) {
   //   const heart = await this.heartRepository.findOne({
   //     where: { comment_id }
@@ -62,6 +77,31 @@ export class HeartService {
   //     throw new BadRequestException();
   //   }
   //   heart.comment_id = commentHeartDto.comment_id;
+  //   heart.like = false;
+  //   await this.heartRepository.update(heart.id, heart);
+  //   return heart;
+  // }
+
+      // async createRecommentLike(recommentHeartDto: RecommentHeartDto) {
+  //   const heart = await this.heartRepository.findOne({
+  //     where: { recomment_id }
+  //   });
+  //   if (heart && heart.like === true) {
+  //     throw new BadRequestException();
+  //   }
+  //   const heart = new Heart();
+  //   heart.recomment_id = commentHeartDto.recomment_id;
+  //   heart.like = true;
+  //   return await this.heartRepository.save(heart);
+  // }
+
+  // async updateRecommentLike(recommentHeartDto: UpdateRecommentHeartDto) {
+  //   await this.recommentService.findOneRecomment(commentHeartDto.recomment_id);
+  //   const heart = await this.findOneHeartInRecomment(recommentHeartDto.recomment_id);
+  //   if (heart.like === false) {
+  //     throw new BadRequestException();
+  //   }
+  //   heart.recomment_id = recommentHeartDto.recomment_id;
   //   heart.like = false;
   //   await this.heartRepository.update(heart.id, heart);
   //   return heart;

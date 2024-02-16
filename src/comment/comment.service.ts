@@ -17,7 +17,7 @@ export class CommentService {
   async findAllComment(): Promise<Comment[]> {
     return await this.commentRepository.findAllComment();
   }
-
+  
   async findOneComment(id: number): Promise<Comment> {
     const comment = await this.commentRepository.findOneComment(id);
     if (!comment) {
