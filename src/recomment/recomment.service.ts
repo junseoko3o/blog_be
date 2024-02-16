@@ -32,6 +32,31 @@ export class RecommentService {
     return await this.recommentRepository.findOneReCommentInComment(id, comment_id)
   }
 
+    // async createRecommentLike(recommentHeartDto: RecommentHeartDto) {
+  //   const heart = await this.heartRepository.findOne({
+  //     where: { recomment_id }
+  //   });
+  //   if (heart && heart.like === true) {
+  //     throw new BadRequestException();
+  //   }
+  //   const heart = new Heart();
+  //   heart.recomment_id = commentHeartDto.recomment_id;
+  //   heart.like = true;
+  //   return await this.heartRepository.save(heart);
+  // }
+
+  // async updateRecommentLike(recommentHeartDto: UpdateRecommentHeartDto) {
+  //   await this.recommentService.findOneRecomment(commentHeartDto.recomment_id);
+  //   const heart = await this.findOneHeartInRecomment(recommentHeartDto.recomment_id);
+  //   if (heart.like === false) {
+  //     throw new BadRequestException();
+  //   }
+  //   heart.recomment_id = recommentHeartDto.recomment_id;
+  //   heart.like = false;
+  //   await this.heartRepository.update(heart.id, heart);
+  //   return heart;
+  // }
+
   async createRecomment(createData: CreateRecommentDto) {
     const user = await this.userService.findOneUser(createData.created_user_id);
     const content = await this.contentService.findOneContent(createData.content_id);
