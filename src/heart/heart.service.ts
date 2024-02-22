@@ -28,6 +28,18 @@ export class HeartService {
   //   })
   // }
 
+  async findAllHeartInComment(comment_id: number) {
+    return await this.heartRepository.find({
+      where: { comment_id },
+    });
+  }
+
+  async findAllHeartInRecomment(recomment_id: number) {
+    return await this.heartRepository.find({
+      where: { recomment_id },
+    });
+  }
+
   async findOneHeartInComment(comment_id: number) {
     await this.commentService.findOneComment(comment_id);
     return await this.heartRepository.findOne({
