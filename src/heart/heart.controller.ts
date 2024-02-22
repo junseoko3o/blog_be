@@ -9,6 +9,16 @@ import { UpdateReCommentHeartDto } from './dto/update.recomment-heart.dto';
 export class HeartController {
   constructor(private readonly heartService: HeartService) {}
 
+  @Get('/comment/list')
+  async findAllHeartInComment(@Param('comment_id') comment_id: number) {
+    return await this.heartService.findAllHeartInComment(comment_id);
+  }
+
+  @Get('/recomment/list')
+  async findAllHeartInRecomment(@Param('recomment_id') recomment_id: number) {
+    return await this.heartService.findAllHeartInRecomment(recomment_id);
+  }
+
   @Get('/comment/:comment_id')
   async findOneHeartInComment(@Param('comment_id') comment_id: number) {
     return await this.heartService.findOneHeartInComment(comment_id);
