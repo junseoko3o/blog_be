@@ -15,9 +15,9 @@ describe('UserController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
       providers: [
-        UserService, // UserService requires UserRepository and ConfigService
-        UserRepository, // Add UserRepository as a provider
-        ConfigService, // Add ConfigService as a provider
+        UserService,
+        UserRepository,
+        ConfigService,
         AuthService,
         {
           provide: DataSource,
