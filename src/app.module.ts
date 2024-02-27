@@ -45,6 +45,8 @@ import { HeartModule } from './heart/heart.module';
     //   synchronize: true,
     //   timezone: 'Z',
     // }),
+
+    // mongo, batch
     // ScheduleModule.forRoot(),
     // MongooseModule.forRoot(process.env.MONGO_DB_URL, { dbName: process.env.DATABASE_NAME }),
     UserModule,
