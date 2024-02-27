@@ -3,9 +3,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { User } from './user.entity';
-import * as bcrypt from 'bcrypt';
 import { LoginUserDto } from './dto/login-user.dto';
 import { Content } from 'src/content/content.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
