@@ -1,6 +1,6 @@
 import { Comment } from "src/comment/comment.entity";
 import { Recomment } from "src/recomment/recomment.entity";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Heart {
@@ -14,31 +14,18 @@ export class Heart {
   recomment_id: number;
 
   @Column({
-    default: 0,
+    default: false,
   })
-  like: number;
+  like: boolean;
 
-  // @Column({
-  //   default: false,
-  // })
-  // like: boolean;
+  @Column()
+  user_id: number;
 
-  // @Column()
-  // user_id: number;
-
-  @OneToOne(() => Comment, (comment) =>  comment.heart, { cascade : true })
-  @JoinColumn({ name: 'comment_id' })
+  @ManyToOne(() => Comment, (comment) => comment.heart, { onDelete: 'CASCADE' })
+  @JoinColumn([{ name: 'comment_id' }])
   comment: Comment;
 
-  // @ManyToOne(() => Comment, (comment) => comment.heart, { onDelete: 'CASCADE' })
-  // @JoinColumn([{ name: 'comment_id' }])
-  // comment: Comment;
-
-  @OneToOne(() => Recomment, (recomment) =>  recomment.heart, { cascade : true })
-  @JoinColumn({ name: 'recomment_id' })
+  @ManyToOne(() => Recomment, (recomment) => recomment.heart, { onDelete: 'CASCADE' })
+  @JoinColumn([{ name: 'recomment_id' }])
   recomment: Recomment;
-
-  // @ManyToOne(() => Recomment, (recomment) => recomment.heart, { onDelete: 'CASCADE' })
-  // @JoinColumn([{ name: 'recomment_id' }])
-  // recomment: Recomment;
 }

@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { HeartService } from './heart.service';
 import { CommentHeartDto } from './dto/comment-heart.dto';
-import { ReCommentHeartDto } from './dto/recomment-heart.dto';
 import { UpdateCommentHeartDto } from './dto/update.comment-heart.dto';
-import { UpdateReCommentHeartDto } from './dto/update.recomment-heart.dto';
+import { RecommentHeartDto } from './dto/recomment-heart.dto';
+import { UpdateRecommentHeartDto } from './dto/update.recomment-heart.dto';
 
 @Controller('heart')
 export class HeartController {
@@ -35,8 +35,8 @@ export class HeartController {
   }
 
   @Post('/recomment')
-  async createHeartInReComment(@Body() recommentHeartDto: ReCommentHeartDto) {
-    return await this.heartService.createReCommentLike(recommentHeartDto);
+  async createHeartInReComment(@Body() recommentHeartDto: RecommentHeartDto) {
+    return await this.heartService.createRecommentLike(recommentHeartDto);
   }
 
   @Post('/comment/update')
@@ -45,7 +45,7 @@ export class HeartController {
   }
 
   @Post('/recomment/update')
-  async updateHeartInReComment(@Body() recommentHeartDto: UpdateReCommentHeartDto) {
-    return await this.heartService.updateReommentLike(recommentHeartDto);
+  async updateHeartInReComment(@Body() recommentHeartDto: UpdateRecommentHeartDto) {
+    return await this.heartService.updateRecommentLike(recommentHeartDto);
   }
 }

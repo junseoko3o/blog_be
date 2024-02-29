@@ -4,9 +4,9 @@ export class CommentHeartDto {
   @IsNumber()
   comment_id: number;
 
-  // @IsBoolean()
-  // like: boolean;
+  @IsBoolean()
+  like: boolean;
 
-  // @IsNumber()
-  // user_id: number;
+  @IsNumber()
+  user_id: number;
 }
