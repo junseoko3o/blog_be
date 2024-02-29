@@ -1,6 +1,6 @@
 import { IsBoolean, IsNumber } from "class-validator";
 
-export class UpdateReCommentHeartDto {
+export class UpdateRecommentHeartDto {
   @IsNumber()
   recomment_id: number;
 
