@@ -22,7 +22,9 @@ async function bootstrap() {
     }),
   );
   // redisConnectSession(app);
-  app.useWebSocketAdapter(new RedisIoAdapter(app));
+  const redisIoAdapter = new RedisIoAdapter(app);
+  await redisIoAdapter.connectToRedis();
+  app.useWebSocketAdapter(redisIoAdapter);
   app.useGlobalFilters(new HttpExceptionFilter());
   app.use(cookieParser()); 
   app.enableCors({
