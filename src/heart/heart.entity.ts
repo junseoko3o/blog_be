@@ -1,6 +1,7 @@
 import { Comment } from "src/comment/comment.entity";
 import { Recomment } from "src/recomment/recomment.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/user/user.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Heart {
@@ -18,8 +19,12 @@ export class Heart {
   })
   like: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   user_id: number;
+
+  @ManyToOne(() => User, (user) => user.heart, { onDelete: 'CASCADE' })
+  @JoinColumn([{ name: 'user_id' }])
+  user: User;
 
   @ManyToOne(() => Comment, (comment) => comment.heart, { onDelete: 'CASCADE' })
   @JoinColumn([{ name: 'comment_id' }])
