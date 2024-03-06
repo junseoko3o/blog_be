@@ -24,6 +24,11 @@ export class HeartController {
     return await this.heartService.createRecommentLike(recommentHeartDto);
   }
 
+  @Post('/comment')
+  async createHeartInComment(@Body() createHeartDto: CommentHeartDto) {
+    return await this.heartService.createCommentLike(createHeartDto);
+  }
+
   @Post('/comment/update')
   async updateHeartInComment(@Body() commentHeartDto: UpdateCommentHeartDto) {
     return await this.heartService.updateCommentLike(commentHeartDto);

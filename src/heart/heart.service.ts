@@ -73,9 +73,6 @@ export class HeartService {
     const findHeart = await this.heartRepository.findOne({
       where: { comment_id: commentHeartDto.comment_id }
     });
-    if (findHeart && findHeart.like === true) {
-      throw new BadRequestException();
-    }
     const heart = new Heart();
     heart.comment_id = commentHeartDto.comment_id;
     heart.like = true;
@@ -85,11 +82,9 @@ export class HeartService {
   async updateCommentLike(commentHeartDto: UpdateCommentHeartDto) {
     await this.commentService.findOneComment(commentHeartDto.comment_id);
     const heart = await this.findOneHeartInComment(commentHeartDto.comment_id);
-    if (heart.like === false) {
-      throw new BadRequestException();
-    }
     heart.comment_id = commentHeartDto.comment_id;
-    heart.like = false;
+    heart.like = commentHeartDto.like;
+    heart.user_id = commentHeartDto.user_id;
     await this.heartRepository.update(heart.id, heart);
     return heart;
   }
