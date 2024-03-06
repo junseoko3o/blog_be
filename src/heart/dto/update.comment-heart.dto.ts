@@ -6,4 +6,7 @@ export class UpdateCommentHeartDto {
 
   @IsBoolean()
   like: boolean;
+
+  @IsNumber()
+  user_id: number;
 }
