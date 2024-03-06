@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { HeartService } from './heart.service';
 import { CommentHeartDto } from './dto/comment-heart.dto';
 import { UpdateCommentHeartDto } from './dto/update.comment-heart.dto';
@@ -18,6 +18,15 @@ export class HeartController {
   @Get('/comment/:comment_id')
   async likeCountInComment(@Param('comment_id') comment_id: number) {
     return await this.heartService.likeCountInComment(comment_id);
+  }
+
+  @Get('/info/:comment_id')
+  async heartInfoComment(@Param('comment_id') comment_id: number, @Query('user') user_id: number) {
+    const commentHeartInfoDto: CommentHeartInfoDto = {
+      comment_id,
+      user_id,
+    }
+    return await this.heartService.heartInfoInComment(commentHeartInfoDto);
   }
 
   @Post('/comment/info')
