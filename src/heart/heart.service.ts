@@ -8,6 +8,7 @@ import { CommentHeartDto } from './dto/comment-heart.dto';
 import { UpdateCommentHeartDto } from './dto/update.comment-heart.dto';
 import { RecommentHeartDto } from './dto/recomment-heart.dto';
 import { UpdateRecommentHeartDto } from './dto/update.recomment-heart.dto';
+import { CommentHeartInfoDto } from './dto/comment-heart-info.dto';
 
 @Injectable()
 export class HeartService {
@@ -21,12 +22,6 @@ export class HeartService {
   async findAllHeart() {
     return await this.heartRepository.find();
   }
-
-  // async findOneHeartInUser(user_id: number) {
-  //   return await this.heartRepository.findOne({
-  //     where: { user_id },
-  //   })
-  // }
 
   async findAllHeartInComment(comment_id: number) {
     return await this.heartRepository.find({
@@ -69,14 +64,33 @@ export class HeartService {
     };
   }
 
-  async createCommentLike(commentHeartDto: CommentHeartDto) {
+  async heartInfoInComment(commentHeartInfoDto: CommentHeartInfoDto) {
     const findHeart = await this.heartRepository.findOne({
-      where: { comment_id: commentHeartDto.comment_id }
+      where: { 
+        comment_id: commentHeartInfoDto.comment_id,
+        user_id: commentHeartInfoDto.user_id,
+      }
     });
-    const heart = new Heart();
-    heart.comment_id = commentHeartDto.comment_id;
-    heart.like = true;
-    return await this.heartRepository.save(heart);
+    return findHeart;
+  }
+
+  async createCommentLike(commentHeartDto: CommentHeartDto) {
+    const commentHeartInfoDto: CommentHeartInfoDto = {
+      comment_id: commentHeartDto.comment_id,
+      user_id: commentHeartDto.user_id,
+    }
+    const findHeart = await this.heartInfoInComment(commentHeartInfoDto);
+    if (findHeart) {
+      return await this.updateCommentLike({
+        comment_id: commentHeartDto.comment_id,
+        like: commentHeartDto.like,
+      });
+    } else {
+      const heart = new Heart();
+      heart.comment_id = commentHeartDto.comment_id;
+      heart.like = commentHeartDto.like;
+      return await this.heartRepository.save(heart);
+    }
   }
 
   async updateCommentLike(commentHeartDto: UpdateCommentHeartDto) {
@@ -84,7 +98,6 @@ export class HeartService {
     const heart = await this.findOneHeartInComment(commentHeartDto.comment_id);
     heart.comment_id = commentHeartDto.comment_id;
     heart.like = commentHeartDto.like;
-    heart.user_id = commentHeartDto.user_id;
     await this.heartRepository.update(heart.id, heart);
     return heart;
   }

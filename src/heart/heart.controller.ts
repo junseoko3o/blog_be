@@ -4,6 +4,7 @@ import { CommentHeartDto } from './dto/comment-heart.dto';
 import { UpdateCommentHeartDto } from './dto/update.comment-heart.dto';
 import { RecommentHeartDto } from './dto/recomment-heart.dto';
 import { UpdateRecommentHeartDto } from './dto/update.recomment-heart.dto';
+import { CommentHeartInfoDto } from './dto/comment-heart-info.dto';
 
 @Controller('heart')
 export class HeartController {
@@ -17,6 +18,11 @@ export class HeartController {
   @Get('/comment/:comment_id')
   async likeCountInComment(@Param('comment_id') comment_id: number) {
     return await this.heartService.likeCountInComment(comment_id);
+  }
+
+  @Post('/comment/info')
+  async heartInfoInComment(@Body() commentHeartInfoDto: CommentHeartInfoDto) {
+    return await this.heartService.heartInfoInComment(commentHeartInfoDto);
   }
 
   @Post('/recomment')
