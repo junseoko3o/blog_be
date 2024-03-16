@@ -61,6 +61,7 @@ export class HeartService {
     }
     return {
       like_count: count,
+      comment_id,
     };
   }
 
