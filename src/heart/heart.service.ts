@@ -79,7 +79,7 @@ export class HeartService {
     const commentHeartInfoDto: CommentHeartInfoDto = {
       comment_id: commentHeartDto.comment_id,
       user_id: commentHeartDto.user_id,
-    }
+    };
     const findHeart = await this.heartInfoInComment(commentHeartInfoDto);
     if (findHeart) {
       return await this.updateCommentLike({
