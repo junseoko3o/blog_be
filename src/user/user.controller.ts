@@ -1,8 +1,8 @@
 import { Body, Controller, Post, Get, Param, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
+import { CreateUserDto } from './requestDto/create-user.dto';
+import { UpdateUserDto } from './requestDto/update-user.dto';
+import { LoginUserDto } from './requestDto/login-user.dto';
 import { User } from './user.entity';
 import { Public } from '../auth/public.decorator';
 import { Content } from 'src/content/content.entity';
