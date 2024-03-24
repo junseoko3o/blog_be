@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { User } from "./user.entity";
 import { DataSource, Repository } from "typeorm";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
+import { CreateUserDto } from "./requestDto/create-user.dto";
+import { UpdateUserDto } from "./requestDto/update-user.dto";
 import { plainToInstance } from "class-transformer";
 @Injectable()
 export class UserRepository extends Repository<User> {
