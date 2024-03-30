@@ -7,6 +7,7 @@ import { User } from './user.entity';
 import { Public } from '../auth/public.decorator';
 import { Content } from 'src/content/content.entity';
 import { ResponseTimeInterceptor } from 'src/response-time.interceptor';
+import { UserResponseDto } from './responseDto/create-user.response.dto';
 
 @Controller('user')
 export class UserController {
@@ -30,14 +31,14 @@ export class UserController {
   }
 
   @Post('name/check')
-  async findOneUserNameCheck(@Body() user_name: string): Promise<User> {
+  async findOneUserNameCheck(@Body() user_name: string): Promise<UserResponseDto> {
     return await this.userService.findOneUserName(user_name);
   }
 
   @Post('signup')
   @UseInterceptors(ResponseTimeInterceptor)
   @Public()
-  async userSignUp(@Body() createData: CreateUserDto): Promise<User> {
+  async userSignUp(@Body() createData: CreateUserDto): Promise<UserResponseDto> {
     return await this.userService.signUpUser(createData);
   }
 
@@ -47,12 +48,12 @@ export class UserController {
   }
 
   @Post('update/:id')
-  async userUpdate(@Param('id') id: number, @Body() updateData: UpdateUserDto): Promise<User> {
+  async userUpdate(@Param('id') id: number, @Body() updateData: UpdateUserDto): Promise<UserResponseDto> {
     return await this.userService.updateUser(id, updateData);
   }
 
   @Post('update/pw/:id')
-  async updatePassword(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+  async updatePassword(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
     return await this.userService.updatePassword(id, updateUserDto);
   }
 
