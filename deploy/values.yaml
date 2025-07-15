@@ -1,0 +1,30 @@
+image:
+  repository: junseokoo/blog.be
+  tag: latest
+  pullPolicy: IfNotPresent
+
+nodeSelector:
+  kubernetes.io/hostname: worker-node10
+
+service:
+  type: NodePort
+  port: 8080
+
+serviceAccount:
+  create: true
+  name: ""
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - /
+  tls: []
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
