@@ -12,4 +12,6 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "deploy.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/instance: blog-be
+    app.kubernetes.io/name: deploy
+    app: blog-be
