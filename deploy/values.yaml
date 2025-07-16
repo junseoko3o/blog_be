@@ -1,6 +1,6 @@
 image:
   repository: junseokoo/blog.be
-  tag: build-55
+  tag: build-56
   pullPolicy: IfNotPresent
 
 nodeSelector:
