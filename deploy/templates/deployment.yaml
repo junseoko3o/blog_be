@@ -6,14 +6,10 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/instance: blog-be
-      app.kubernetes.io/name: deploy
       app: blog-be
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: blog-be
-        app.kubernetes.io/name: deploy
         app: blog-be
     spec:
       nodeSelector:
