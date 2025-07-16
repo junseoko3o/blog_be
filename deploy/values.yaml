@@ -9,7 +9,8 @@ nodeSelector:
 service:
   type: NodePort
   port: 8080
-
+  targetPort: 8080
+  
 serviceAccount:
   create: true
   name: ""
