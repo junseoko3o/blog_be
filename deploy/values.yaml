@@ -16,7 +16,7 @@ serviceAccount:
   name: "blog-service-account"
 
 ingress:
-  enabled: true
+  enabled: false
   annotations: {}
   hosts:
     - host: chart-example.local
