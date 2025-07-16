@@ -1,6 +1,6 @@
 image:
   repository: junseokoo/blog.be
-  tag: latest
+  tag: "${IMAGE_TAG}"
   pullPolicy: IfNotPresent
 
 nodeSelector:
