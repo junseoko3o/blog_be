@@ -28,7 +28,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   app.use(cookieParser()); 
   app.enableCors({
-    origin: ['http://10.101.37.179:3000'],
+    origin: true,
     methods: 'GET,HEAD,POST,DELETE',
     credentials: true,
   });
